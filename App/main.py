@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
-from App.models import Base, User, Study_Session, Session_notes
+from .models import Base, User, Study_Session, Session_notes
 from datetime import datetime
 # from flask_cors import CORS
 from fastapi.middleware.cors import CORSMiddleware
