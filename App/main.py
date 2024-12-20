@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from pydantic import BaseModel
-from models import Base, User, Study_Session, Session_notes
+from App.models import Base, User, Study_Session, Session_notes
 from datetime import datetime
 # from flask_cors import CORS
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,20 +12,21 @@ MYDatabase = "sqlite:///./sessionManager.sqlite"  # Using your specified DB
 engine = create_engine(MYDatabase, connect_args={"check_same_thread": False})
 myLocalSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Initialize FastAPI apk
+# Initialize FastAPI app
 apk = FastAPI()
 
 origins = [
-    "http://localhost:5174"
+    "http://localhost:5173"
 ]
 apk.add_middleware(
     CORSMiddleware,
-    allow_origins= ["http://localhost:5174"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],  # Allow all headers
-# Dependency to get the database session
 )
+
+# Dependency to get the database session
 def get_db():
     db = myLocalSession()
     try:
