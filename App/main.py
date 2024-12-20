@@ -1,3 +1,4 @@
+# sqlalchey and fastapi
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
@@ -8,7 +9,7 @@ from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
 
 # Database setup
-MYDatabase = "sqlite:///./sessionManager.sqlite"  # Using your specified DB
+MYDatabase = "sqlite:///./sessionManager.sqlite"  
 engine = create_engine(MYDatabase, connect_args={"check_same_thread": False})
 myLocalSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -23,9 +24,8 @@ apk.add_middleware(
     allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_headers=["*"],  
 )
-
 # Dependency to get the database session
 def get_db():
     db = myLocalSession()
@@ -34,7 +34,6 @@ def get_db():
     finally:
         db.close()
 
-# Create the tables (if they don't exist already)
 Base.metadata.create_all(bind=engine)
 
 # Pydantic models for validating the user input
@@ -100,10 +99,10 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
     for session in db_sessions:
         db_notes = db.query(Session_notes).filter(Session_notes.session_id == session.id).all()
         for note in db_notes:
-            db.delete(note)  # Delete related notes
-        db.delete(session)  # Delete related study session
+            db.delete(note)  # delate associated notes
+        db.delete(session)  # delete associated study session
 
-    db.delete(db_user)  # Delete the user
+    db.delete(db_user)  # delete the user
     db.commit()
     return {"message": "User and associated data deleted successfully"}
 
@@ -119,7 +118,6 @@ async def update_user(user_id: int, user: UserCreate, db: Session = Depends(get_
     db.commit()
     db.refresh(db_user)
     return db_user
-
 
 # Routes for Study Session
 @apk.post("/study_sessions/")
@@ -153,7 +151,7 @@ async def delete_study_session(session_id: int, db: Session = Depends(get_db)):
     for note in db_notes:
         db.delete(note)
 
-    db.delete(db_session)  # Delete the study session
+    db.delete(db_session)  # delete a study session
     db.commit()
     return {"message": "Study session and associated notes deleted successfully"}
 
