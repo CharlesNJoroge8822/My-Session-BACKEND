@@ -1,5 +1,5 @@
 ## Links ...
-FRONTEND LINK : https://charlesnjoroge8822.github.io/My-Session.-FRONTEND/
+FRONTEND LINK : [https://charlesnjoroge8822.github.io/My-Session.-FRONTEND/](https://github.com/CharlesNJoroge8822/My-Session.-FRONTEND)
 SLIDES LINK : https://www.canva.com/design/DAGZTHhjoYs/1ZeHFIB79ejKCP2Z0D_1Vg/edit?utm_content=DAGZTHhjoYs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 SREENCAST LINK : https://www.loom.com/share/18cc4569aaa54172a07f1e13448c72f9?sid=51a7a980-2660-44b2-ae6a-e5088c72867a
 
