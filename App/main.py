@@ -172,11 +172,23 @@ async def update_study_session(session_id: int, session: StudySessionCreate, db:
 # Routes for Session Notes
 @apk.post("/session_notes/")
 async def create_session_note(note: SessionNoteCreate, db: Session = Depends(get_db)):
+    # check if it exists using the ID ...
+    existing_note = db.query(Session_notes).filter(
+        Session_notes.note_context == note.note_context,
+        Session_notes.session_id == note.session_id
+    ).first()
+
+    if existing_note:
+        raise HTTPException(status_code=400, detail="Session note already exists.")
+
+    # Create the new note if it doesn't exist
     new_note = Session_notes(note_context=note.note_context, session_id=note.session_id)
     db.add(new_note)
     db.commit()
     db.refresh(new_note)
     return new_note
+
+
 
 @apk.get("/session_notes/{note_id}")
 async def read_session_note(note_id: int, db: Session = Depends(get_db)):
